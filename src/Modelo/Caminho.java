@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Caminho {
 	
-	ArrayList<Jogada> caminhoAtual;
+	ArrayList<Jogada> caminhoAtual; //caminho atual sob analise
+	int custoHeuristica; // custo heuristico do nodo
 	
 	
 	public Caminho(Jogada jogadaInicial){
@@ -12,6 +13,8 @@ public class Caminho {
 		caminhoAtual = new ArrayList<Jogada>(50);
 		
 		caminhoAtual.add(jogadaInicial);
+		
+		custoHeuristica = jogadaInicial.calculaHeuristica();
 	}
 	
 	
