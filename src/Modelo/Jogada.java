@@ -39,7 +39,11 @@ public void mostrarJogada() {
 	
 	
 	
-	
+
+
+
+
+
 		
 	}
 	
