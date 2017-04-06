@@ -9,8 +9,19 @@ public class Fronteira {
 	
 	public Fronteira(){
 		
-		
+	caminhos = new ArrayList<Caminho>(50);	
 		
 	}
+
+	public ArrayList<Caminho> getCaminhos() {
+		return caminhos;
+	}
+
+	public void setCaminhos(ArrayList<Caminho> caminhos) {
+		this.caminhos = caminhos;
+	}
+	
+	
+	
 
 }
