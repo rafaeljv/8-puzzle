@@ -11,10 +11,13 @@ public class Principal {
 
 
 Jogada jogadaInicial = new Jogada();
-		
-//tab.mostrarTabuleiro();
-//tab.sortearPecas();
+
 	jogadaInicial.mostrarJogada();
+	
+	
+	System.out.println("\ncusto heuristico da jogada inicial: "+jogadaInicial.calculaHeuristica());
+	
+	
 	
 	
 	}
