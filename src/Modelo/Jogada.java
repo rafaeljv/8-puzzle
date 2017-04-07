@@ -10,6 +10,7 @@ public class Jogada {
 
 	public Jogada(){
 		
+		// populacao dos espacos, randomico.
 		jogada = new ArrayList<Integer>(8);		
 			for(int i = 0; i< 9;i++){
 				jogada.add(i); Collections.shuffle(jogada);}
@@ -48,7 +49,7 @@ public void setJogada(ArrayList<Integer> jogada) {
 
 
 public int calculaHeuristica() {
-	// TODO Auto-generated method stub
+	// calcula o somatorio das distancias ate o estado ideal
 	int tam = this.getJogada().size();
 	int cont = 0;
 	
@@ -56,25 +57,13 @@ public int calculaHeuristica() {
 		
 		cont = cont+ Math.abs(this.getJogada().get(i) - i);
 		
-			
 	}
 	
 	return cont;
 	
 }
 
-
-
-
 	
-	
-	
-
-
-
-
-
-		
 	}
 	
 	

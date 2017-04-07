@@ -1,33 +1,42 @@
 package Modelo;
 
 import java.util.ArrayList;
+import Controle.Gerenciador;
 
 public class Caminho {
 	
 	ArrayList<Jogada> caminhoAtual; //caminho atual sob analise
 	int custoHeuristica; // custo heuristico do nodo
-	Fronteira umaFronteira;
+	Gerenciador umGerenciador;
 	
 	
 	
-	public Caminho(Jogada jogadaInicial, Fronteira umaFronteira){
+	public Caminho(Jogada jogadaInicial){
 		
-		caminhoAtual = new ArrayList<Jogada>(100);
+		caminhoAtual = new ArrayList<Jogada>(1);
 		
 		caminhoAtual.add(jogadaInicial);
 		
 		custoHeuristica = jogadaInicial.calculaHeuristica();
-		
-		umaFronteira = new Fronteira();
-		
+			
 		
 	}
 	
 	
+	public Gerenciador getUmGerenciador() {
+		return umGerenciador;
+	}
+
+
+	public void setUmGerenciador(Gerenciador umGerenciador) {
+		this.umGerenciador = umGerenciador;
+	}
+
+
 	public Caminho() {
-		caminhoAtual = new ArrayList<Jogada>(100);
+		caminhoAtual = new ArrayList<Jogada>(1);
 		custoHeuristica = 20;
-		umaFronteira = new Fronteira();
+		
 	}
 
 
@@ -54,18 +63,21 @@ public class Caminho {
 	public void expandirJogada(){
 		
 		int tam = this.getCaminhoAtual().size();
+		Jogada j = this.getCaminhoAtual().get(tam-1); 
+		int tamJ = j.getJogada().size();
 		
-	for(int i = 0; i<tam;i++){
+	for(int i = 0; i<tamJ;i++){
 		
-		if(this.getCaminhoAtual().get(i).equals(0))
-			
+		int peca = j.getJogada().get(i);
+		
+		if(peca==0)	
 		{
 			
 			switch(i) {
 			
 			case 0:
 				
-				Jogada a0 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a0 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca0 = this.getCaminhoAtual().get(tam-1).getJogada().get(1);
 				a0.getJogada().set(1, 0);
 				a0.getJogada().set(0, peca0);
@@ -77,10 +89,13 @@ public class Caminho {
 				
 				this.entraNaFronteira(a0);
 				this.entraNaFronteira(b0);
+
+				
+				}break;
 				
 			case 1:
 				
-				Jogada a1 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a1 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca1 = this.getCaminhoAtual().get(tam-1).getJogada().get(2);
 				a1.getJogada().set(2, 0);
 				a1.getJogada().set(1, peca1);
@@ -97,26 +112,29 @@ public class Caminho {
 				
 				this.entraNaFronteira(a1);
 				this.entraNaFronteira(b1);
-				this.entraNaFronteira(c1);
+				this.entraNaFronteira(c1);}break;
 				
 			case 2:
 				
-				Jogada a2 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a2 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca2 = this.getCaminhoAtual().get(tam-1).getJogada().get(1);
+				//System.out.println("peca2 = "+peca2);
 				a2.getJogada().set(1, 0);
 				a2.getJogada().set(2, peca2);
 				
 				Jogada b2 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				peca2 = this.getCaminhoAtual().get(tam-1).getJogada().get(5);
+				//System.out.println("peca2 = "+peca2);
 				b2.getJogada().set(5, 0);
 				b2.getJogada().set(2, peca2);
-				
+				//a2.mostrarJogada();
+				//b2.mostrarJogada();
 				this.entraNaFronteira(a2);
-				this.entraNaFronteira(b2);
+				this.entraNaFronteira(b2);}break;
 				
 			case 3:
 				
-				Jogada a3 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a3 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca3 = this.getCaminhoAtual().get(tam-1).getJogada().get(0);
 				a3.getJogada().set(0, 0);
 				a3.getJogada().set(3, peca3);
@@ -133,12 +151,12 @@ public class Caminho {
 				
 				this.entraNaFronteira(a3);
 				this.entraNaFronteira(b3);
-				this.entraNaFronteira(c3);
+				this.entraNaFronteira(c3);}break;
 				
 				
 			case 4:
 				
-				Jogada a4 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a4 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca4 = this.getCaminhoAtual().get(tam-1).getJogada().get(3);
 				a4.getJogada().set(3, 0);
 				a4.getJogada().set(4, peca4);
@@ -161,11 +179,11 @@ public class Caminho {
 				this.entraNaFronteira(a4);
 				this.entraNaFronteira(b4);
 				this.entraNaFronteira(c4);
-				this.entraNaFronteira(d4);
+				this.entraNaFronteira(d4);}break;
 				
 			case 5:
 				
-				Jogada a5 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a5 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca5 = this.getCaminhoAtual().get(tam-1).getJogada().get(4);
 				a5.getJogada().set(4, 0);
 				a5.getJogada().set(5, peca5);
@@ -180,13 +198,15 @@ public class Caminho {
 				c5.getJogada().set(8, 0);
 				c5.getJogada().set(5, peca5);
 				
+				//a5.mostrarJogada();
+				
 				this.entraNaFronteira(a5);
 				this.entraNaFronteira(b5);
-				this.entraNaFronteira(c5);
+				this.entraNaFronteira(c5);}break;
 				
 			case 6:
 				
-				Jogada a6 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a6 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca6 = this.getCaminhoAtual().get(tam-1).getJogada().get(7);
 				a6.getJogada().set(7, 0);
 				a6.getJogada().set(6, peca6);
@@ -197,11 +217,11 @@ public class Caminho {
 				b6.getJogada().set(6, peca6);
 				
 				this.entraNaFronteira(a6);
-				this.entraNaFronteira(b6);
+				this.entraNaFronteira(b6);}break;
 				
 			case 7:
 				
-				Jogada a7 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a7 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca7 = this.getCaminhoAtual().get(tam-1).getJogada().get(6);
 				a7.getJogada().set(6, 0);
 				a7.getJogada().set(7, peca7);
@@ -220,9 +240,11 @@ public class Caminho {
 				this.entraNaFronteira(b7);
 				this.entraNaFronteira(c7);
 				
+				}break;
+				
 			case 8:
 			
-				Jogada a8 = new Jogada(this.getCaminhoAtual().get(tam-1));
+				{Jogada a8 = new Jogada(this.getCaminhoAtual().get(tam-1));
 				int peca8 = this.getCaminhoAtual().get(tam-1).getJogada().get(5);
 				a8.getJogada().set(5, 0);
 				a8.getJogada().set(8, peca8);
@@ -233,7 +255,7 @@ public class Caminho {
 				b8.getJogada().set(8, peca8);
 				
 				this.entraNaFronteira(a8);
-				this.entraNaFronteira(b8);
+				this.entraNaFronteira(b8);}break;
 			
 			}
 			
@@ -250,23 +272,21 @@ public class Caminho {
 	}
 
 
-	public Fronteira getUmaFronteira() {
-		return umaFronteira;
-	}
-
-
-	public void setUmaFronteira(Fronteira umaFronteira) {
-		this.umaFronteira = umaFronteira;
-	}
+	
 
 
 	private void entraNaFronteira(Jogada a) {
+		//a.mostrarJogada();System.out.println("\n");
+		
 		Caminho c = new Caminho();
 		c.setCaminhoAtual(caminhoAtual);
 		c.getCaminhoAtual().add(a);
-		this.getUmaFronteira().getCaminhos().add(c);
-		
+		this.getUmGerenciador().getUmaFronteira().getCaminhos().add(c);
+			
 	}
+
+
+
 	
 	
 	
