@@ -9,7 +9,7 @@ public class Fronteira {
 	
 	public Fronteira(){
 		
-	caminhos = new ArrayList<Caminho>(50);	
+	caminhos = new ArrayList<Caminho>(1);	
 		
 	}
 
@@ -21,7 +21,21 @@ public class Fronteira {
 		this.caminhos = caminhos;
 	}
 	
-	
+	public void mostrarFronteira(){
+		
+		
+		int tamF = this.getCaminhos().size();
+		
+		for (int i=0;i<tamF;i++){
+			int tamC = this.getCaminhos().get(i).getListaJogadas().size();
+			
+			for(int k=0;k<tamC;k++)
+			{
+				System.out.println("\n jogada "+ k+ " do caminho"+ i+" \n");
+				this.getCaminhos().get(i).getListaJogadas().get(k).mostrarJogada();}
+			
+		}
+	}
 	
 
 }

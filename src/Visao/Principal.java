@@ -1,5 +1,7 @@
 package Visao;
 
+import java.util.ArrayList;
+
 import Controle.Gerenciador;
 import Modelo.Caminho;
 import Modelo.Fronteira;
@@ -8,7 +10,7 @@ import Modelo.Jogada;
 
 public class Principal {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CloneNotSupportedException  {
 		
 	// instanciar uma jogada
 	Jogada jogadaInicial = new Jogada();
@@ -24,10 +26,42 @@ public class Principal {
 	// repassar o gerenciador ao proprio caminho, para transporte de caminhos para a fronteira
 	oCaminho.setUmGerenciador(ger);
 	// iniciar a busca
-	ger.iniciar();
+	ArrayList<Jogada> alj = new ArrayList<Jogada>();
+			
+	alj = oCaminho.expandirJogada();
 	
+	int tamL = alj.size();
+	int tamC = oCaminho.getListaJogadas().size();
+	
+	
+	for(int z=0; z< tamL;z++)
+		
+	{
+	Caminho n = new Caminho();
+	
+	for(int k =0; k< tamC; k++)
+	{n.getListaJogadas().add(oCaminho.getListaJogadas().get(k));}
+	
+	n.getListaJogadas().add(alj.get(z));
+	
+	aFronteira.getCaminhos().add(n);
 	
 	
 	}
+	System.out.println("tamanho da fronteira "+aFronteira.getCaminhos().size());
+	System.out.println("tamanho do primeiro caminho da Fronteira "+aFronteira.getCaminhos().get(0).getListaJogadas().size());
+	
+	
+	
+	
+	
+	
+		//ger.iniciar();
+	
+	}
+	
+	
+	
+	
 
-}
+	}
