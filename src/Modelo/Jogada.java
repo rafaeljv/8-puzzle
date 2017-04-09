@@ -48,6 +48,7 @@ public void setJogada(ArrayList<Integer> jogada) {
 }
 
 
+
 public int calculaHeuristica() {
 	// calcula o somatorio das distancias ate o estado ideal
 	int tam = this.getJogada().size();
@@ -59,8 +60,28 @@ public int calculaHeuristica() {
 		
 	}
 	
+	
+	
 	return cont;
 	
+}
+
+
+
+public int calculaSegundaHeuristica() {
+	
+	int tam = this.getJogada().size();
+
+	// calcula o numero de pecas fora do lugar
+	
+	int cont = 0;
+	
+	for(int j = 0; j<tam; j++){
+		
+		if(this.getJogada().get(j) != j){cont = cont+1;}
+		
+	}
+	return 0;
 }
 
 	

@@ -1,8 +1,11 @@
 package Controle;
 
+import java.util.ArrayList;
+
 import Modelo.Caminho;
 import Modelo.Fronteira;
 import Modelo.Jogada;
+import Modelo.Percorridos;
 
 
 
@@ -11,23 +14,37 @@ public class Gerenciador {
 
 Caminho umCaminho;
 Fronteira umaFronteira;
+Percorridos umPercorrido;
 	
 	public Gerenciador(Caminho vUmCaminho, Fronteira vUmaFronteira){
 		
 		
 		umCaminho = vUmCaminho;
 		umaFronteira = vUmaFronteira;
+		umPercorrido = new Percorridos();
 		
 	}
 	
 	
 	
+	public Percorridos getUmPercorrido() {
+		return umPercorrido;
+	}
+
+
+
+	public void setUmPercorrido(Percorridos umPercorrido) {
+		this.umPercorrido = umPercorrido;
+	}
+
+
+
 	public boolean verificaVencedor(Jogada j) {
 		
 		if(j.calculaHeuristica()==0) {return true;} else {return false;}
 		
 		}
-	
+	/*
 	public Jogada avaliarFronteira(){
 		
 		int tamFronteira = this.getUmaFronteira().getCaminhos().size();
@@ -71,7 +88,7 @@ Fronteira umaFronteira;
 		
 	}
 
-
+*/
 
 		public Fronteira getUmaFronteira() {
 		return umaFronteira;
@@ -95,15 +112,27 @@ Fronteira umaFronteira;
 		this.umCaminho = umCaminho;
 	}
 	
-	
+	public boolean verificaPercorrido(Caminho n){
+		
+		
+		int tamF = this.getUmaFronteira().getCaminhos().size(); // tamanho da fronteira
+		Jogada j = n.jogadaDoTopo(); // jogada do topo do caminho a ser analisado
+		
+		for (int i = 0; i< tamF; i++) {
+			
+			Jogada f = this.getUmaFronteira().getCaminhos().get(i).jogadaDoTopo();
+			if(f.equals(j)) { return false;} //se jogada ja passou por percorridos, retorna falso
+			
+		}
+				
+		return true;
+	}
 	
 
 
 
 		public void iniciar() throws CloneNotSupportedException {
 			
-			//int tamCaminhos = this.getUmCaminho().getListaJogadas().size(); //tamanho do caminho
-			//System.out.println("tamanho do caminho na jogada 1 "+tamCaminhos);
 			Jogada j = this.getUmCaminho().jogadaDoTopo(); //pega o ultimo caminho adicionado
 			
 			if(this.verificaVencedor(j)) {
@@ -114,24 +143,53 @@ Fronteira umaFronteira;
 			
 			
 		else {
-			System.out.println("tamanho do caminho atual "+this.getUmCaminho().getListaJogadas().size());
 			
+			ArrayList<Jogada> alj = new ArrayList<Jogada>();
+			alj = this.getUmCaminho().expandirJogada();
 			
-		this.getUmCaminho().expandirJogada();
+			int tamL = alj.size();
+			int tamC = this.getUmCaminho().getListaJogadas().size();
 		
-		System.out.println("tamanho da fronteira "+this.getUmaFronteira().getCaminhos().size());
+			for( int z = 0; z < tamL;z++ ) {
+				Caminho n = new Caminho();
+		
+				for(int k = 0; k < tamC; k++)
+				{n.getListaJogadas().add(this.getUmCaminho().getListaJogadas().get(k));}
+			n.getListaJogadas().add(alj.get(z));
+			
+			if(verificaPercorrido(n))
+			{this.getUmaFronteira().getCaminhos().add(n);} // adiciona os caminhos decorrentes da expansao na fronteira
+			
+			}
+			
+		//Jogada h = this.getUmaFronteira().avaliarFronteira();
+		
+		Caminho c = this.getUmaFronteira().avaliarFronteira(); // extrai da fronteira o caminho de menor custo
 		
 		
-		System.out.println("tamanho do caminho final "+this.getUmCaminho().getListaJogadas().size());
+		System.out.println("\n jogada extraida da fronteira: ");c.jogadaDoTopo().mostrarJogada();
 		
-		this.getUmaFronteira().mostrarFronteira();
 		
-		//System.out.println("tamanho do caminho atual "+this.getUmCaminho().getCaminhoAtual().size());
+		// checagem se jogada eh repetida:
 		
-		//Jogada novaJogada = this.avaliarFronteira();
-		//novaJogada.mostrarJogada();
-		//this.getUmCaminho().getCaminhoAtual().add(novaJogada);
-		//iniciar();
+		
+		while ( ! this.verificaPercorrido(c) || c.jogadaDoTopo().equals(this.getUmCaminho().getListaJogadas().get(0))) { // se falso, ha estado repetido 
+			
+			c = this.getUmaFronteira().avaliarFronteira();
+			
+		}
+		
+		//this.getUmCaminho().getListaJogadas().add(h);
+		
+		this.getUmPercorrido().getCaminhosPercorridos().add(this.getUmCaminho()); //acrescenta o caminho atual em Percorridos
+		
+		this.setUmCaminho(c); // atualiza o caminho atual
+		int custo = +this.getUmCaminho().jogadaDoTopo().calculaHeuristica()+this.getUmCaminho().jogadaDoTopo().calculaSegundaHeuristica();
+		System.out.println("\ncusto heuristico da jogada: "+custo);
+		this.getUmCaminho().jogadaDoTopo().mostrarJogada();
+		System.out.println("tamanho do caminho "+this.getUmCaminho().getListaJogadas().size());
+		
+		
 		}
 		
 	}

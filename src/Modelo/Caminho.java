@@ -25,7 +25,7 @@ public class Caminho implements Cloneable {
 	
 	public Caminho(ArrayList<Jogada> v) {
 		listaJogadas = v;
-		custoHeuristica = this.calculaHeuristicaDoCaminho(this);
+		custoHeuristica = this.calculaHeuristicaDoCaminho();
 		
 	}
 	
@@ -77,7 +77,7 @@ public class Caminho implements Cloneable {
 	public ArrayList<Jogada> expandirJogada() throws CloneNotSupportedException{
 		
 		int tam = this.getListaJogadas().size();
-		Jogada j = this.getListaJogadas().get(tam-1); 
+		Jogada j = this.jogadaDoTopo(); 
 		int tamJ = j.getJogada().size();
 		ArrayList<Jogada> al = new ArrayList<Jogada>();
 		
@@ -494,9 +494,9 @@ public Jogada jogadaDoTopo(){
 }
 
 	
-	public int calculaHeuristicaDoCaminho(Caminho c){
+	public int calculaHeuristicaDoCaminho(){
 		// calcula a heuristica de um array de jogadas (um caminho)
-		int tamC = c.getListaJogadas().size();
+		int tamC = this.getListaJogadas().size();
 		int cont = 0;
 		for(int i = 0; i< tamC; i++){
 			
