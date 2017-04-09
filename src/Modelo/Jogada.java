@@ -81,7 +81,7 @@ public int calculaSegundaHeuristica() {
 		if(this.getJogada().get(j) != j){cont = cont+1;}
 		
 	}
-	return 0;
+	return cont*100;
 }
 
 	

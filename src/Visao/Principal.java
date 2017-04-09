@@ -31,7 +31,7 @@ public class Principal {
 	
 	
 	int cont = 0;
-		while( cont < 2000 && ! ger.verificaVencedor(oCaminho.jogadaDoTopo())) {	
+		while( cont < 15000 && ! ger.verificaVencedor(oCaminho.jogadaDoTopo())) {	
 		ger.iniciar();
 		cont++;
 		}
