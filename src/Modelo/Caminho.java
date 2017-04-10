@@ -500,10 +500,22 @@ public Jogada jogadaDoTopo(){
 		int cont = 0;
 		for(int i = 0; i< tamC; i++){
 			
-			cont = cont + this.getListaJogadas().get(i).calculaHeuristica();
+			cont = cont+this.getListaJogadas().get(i).calculaHeuristica();
 			
 		}
-		return cont;
+		return cont + this.jogadaDoTopo().calculaSegundaHeuristica();
+	}
+
+	public void mostrarCaminho() {
+		int tam = this.getListaJogadas().size();
+		
+		for(int i=0;i<tam;i++){
+			
+			this.getListaJogadas().get(i).mostrarJogada(); 
+			int custo = this.getListaJogadas().get(i).calculaHeuristica()+this.getListaJogadas().get(i).calculaSegundaHeuristica();
+			System.out.println("Custo "+custo); System.out.println("\n");
+		}
+		
 	}
 	
 	

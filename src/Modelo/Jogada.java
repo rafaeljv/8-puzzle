@@ -13,7 +13,25 @@ public class Jogada {
 		// populacao dos espacos, randomico.
 		jogada = new ArrayList<Integer>(8);		
 			for(int i = 0; i< 9;i++){
-				jogada.add(i); Collections.shuffle(jogada);}
+				jogada.add(i); 
+				
+				
+				Collections.shuffle(jogada);
+				
+				
+			}
+		/*
+		jogada.add(0, 5);
+		jogada.add(1, 8);
+		jogada.add(2, 2);
+		jogada.add(3, 3);
+		jogada.add(4, 4);
+		jogada.add(5, 0);
+		jogada.add(6, 6);
+		jogada.add(7, 7);
+		jogada.add(8, 1);
+		
+		*/
 		}
 	
 	
@@ -81,7 +99,7 @@ public int calculaSegundaHeuristica() {
 		if(this.getJogada().get(j) != j){cont = cont+1;}
 		
 	}
-	return cont*100;
+	return cont;
 }
 
 	

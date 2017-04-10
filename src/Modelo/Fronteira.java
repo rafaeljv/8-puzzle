@@ -46,14 +46,14 @@ public class Fronteira {
 		int t = this.getCaminhos().size();
 		for(int i = 0; i< t; i++){
 					
-			int custo = this.getCaminhos().get(i).calculaHeuristicaDoCaminho()+this.getCaminhos().get(i).jogadaDoTopo().calculaSegundaHeuristica();
+			int custo = this.getCaminhos().get(i).calculaHeuristicaDoCaminho();
 			//System.out.println("custo do caminho "+i+" da fronteira ="+custo); this.getCaminhos().get(i).jogadaDoTopo().mostrarJogada();
 			
 			if(custo<min){
 			j = this.getCaminhos().get(i).jogadaDoTopo();
 			n = this.getCaminhos().get(i);
 				min = custo;
-				System.out.println("custo minimo "+custo);
+				//System.out.println("custo minimo "+custo);
 			}
 			
 			}

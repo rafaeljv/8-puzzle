@@ -30,10 +30,15 @@ public class Principal {
 	// iniciar a busca
 	
 	
-	int cont = 0;
-		while( cont < 15000 && ! ger.verificaVencedor(oCaminho.jogadaDoTopo())) {	
+		int cont = 0;
+		while(cont < 100000 && ! ger.verificaVencedor(oCaminho.jogadaDoTopo())) {	
 		ger.iniciar();
+		
 		cont++;
+		System.out.println("Em execucao ");
+		System.out.println(". ");
+		System.out.println(".. ");
+		System.out.println("... ");
 		}
 	
 	

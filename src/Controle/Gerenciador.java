@@ -41,6 +41,14 @@ Percorridos umPercorrido;
 
 	public boolean verificaVencedor(Jogada j) {
 		
+		//System.out.println("heuristica do verificaVencedor "+j.calculaHeuristica());
+		//try {
+			//Thread.sleep(1000);
+		//} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		//}
+		
 		if(j.calculaHeuristica()==0) {return true;} else {return false;}
 		
 		}
@@ -121,13 +129,38 @@ Percorridos umPercorrido;
 		for (int i = 0; i< tamF; i++) {
 			
 			Jogada f = this.getUmaFronteira().getCaminhos().get(i).jogadaDoTopo();
-			if(f.equals(j)) { return false;} //se jogada ja passou por percorridos, retorna falso
+			if(this.jogadasIguais(f, j)) { return false;} //se jogada ja passou por percorridos, retorna falso
 			
 		}
 				
 		return true;
 	}
 	
+public ArrayList<Jogada> varreduraDeEstadosRepetidos(ArrayList<Jogada> a){
+	
+	int tamFronteira = this.getUmaFronteira().getCaminhos().size();
+	int tamArray = a.size();
+	ArrayList<Jogada> b = new ArrayList<Jogada>();
+	
+	
+	for(int i = 0; i< tamArray; i++)
+	{							
+			if( ! this.jogadasIguais(a.get(i), this.getUmCaminho().getListaJogadas().get(0)) )
+				
+			{b.add(a.get(i));}}
+	
+			
+				
+		
+	
+	
+	return b;
+	
+	
+	
+}
+
+
 
 
 
@@ -138,6 +171,10 @@ Percorridos umPercorrido;
 			if(this.verificaVencedor(j)) {
 				
 				System.out.println("Solucao encontrada!"); j.mostrarJogada();
+				System.out.println("Veja o caminho percorrido: \n"); this.getUmCaminho().mostrarCaminho();
+				System.out.println("Tamanho da fronteira "+this.getUmaFronteira().getCaminhos().size());
+				System.out.println("\n Jogadas realizadas "+this.getUmCaminho().getListaJogadas().size());
+				System.exit(0);
 				
 			}
 			
@@ -146,6 +183,10 @@ Percorridos umPercorrido;
 			
 			ArrayList<Jogada> alj = new ArrayList<Jogada>();
 			alj = this.getUmCaminho().expandirJogada();
+			ArrayList<Jogada> alj2 = new ArrayList<Jogada>();
+			alj = this.varreduraDeEstadosRepetidos(alj);
+			//System.out.println("tamanho de alj "+alj.size());
+			//System.out.println("tamanho de alj2 "+alj2.size());
 			
 			int tamL = alj.size();
 			int tamC = this.getUmCaminho().getListaJogadas().size();
@@ -162,37 +203,56 @@ Percorridos umPercorrido;
 			
 			}
 			
+			
 		//Jogada h = this.getUmaFronteira().avaliarFronteira();
 		
 		Caminho c = this.getUmaFronteira().avaliarFronteira(); // extrai da fronteira o caminho de menor custo
 		
 		
-		System.out.println("\n jogada extraida da fronteira: ");c.jogadaDoTopo().mostrarJogada();
+		//System.out.println("\n jogada extraida da fronteira: ");c.jogadaDoTopo().mostrarJogada();
+		// System.out.println("custo da jogada da fronteira "+ c.calculaHeuristicaDoCaminho());
 		
 		
 		// checagem se jogada eh repetida:
 		
+		//Boolean comp = this.jogadasIguais(this.getUmCaminho().getListaJogadas().get(0), c.jogadaDoTopo());
 		
-		while ( ! this.verificaPercorrido(c) || c.jogadaDoTopo().equals(this.getUmCaminho().getListaJogadas().get(0))) { // se falso, ha estado repetido 
+		//while ( ! this.verificaPercorrido(c)  ) { // se falso, ha estado repetido 
 			
-			c = this.getUmaFronteira().avaliarFronteira();
+		//	c = this.getUmaFronteira().avaliarFronteira();
 			
-		}
+	//}
 		
 		//this.getUmCaminho().getListaJogadas().add(h);
 		
 		this.getUmPercorrido().getCaminhosPercorridos().add(this.getUmCaminho()); //acrescenta o caminho atual em Percorridos
 		
 		this.setUmCaminho(c); // atualiza o caminho atual
-		int custo = +this.getUmCaminho().jogadaDoTopo().calculaHeuristica()+this.getUmCaminho().jogadaDoTopo().calculaSegundaHeuristica();
-		System.out.println("\ncusto heuristico da jogada: "+custo);
-		this.getUmCaminho().jogadaDoTopo().mostrarJogada();
-		System.out.println("tamanho do caminho "+this.getUmCaminho().getListaJogadas().size());
-		
 		
 		}
 		
 	}
+
+
+
+		private Boolean jogadasIguais(Jogada jogada1, Jogada jogada2) {
+			
+			//System.out.println("tamanho da jogada 1 "+jogada1.getJogada().size());
+			//System.out.println("tamanho da jogada 2 "+jogada2.getJogada().size());
+			int t1 = jogada2.getJogada().size();
+						
+			
+			for(int i = 0; i<t1; i++){
+				
+				if(jogada1.getJogada().get(i) != jogada2.getJogada().get(i)){return false;}
+				
+			}
+			
+			return true;
+			
+			
+			
+		}
 	
 	
 
