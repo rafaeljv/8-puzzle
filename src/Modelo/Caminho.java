@@ -3,14 +3,12 @@ package Modelo;
 import java.util.ArrayList;
 import Controle.Gerenciador;
 
-public class Caminho implements Cloneable {
+public class Caminho {
 	
 	ArrayList<Jogada> listaJogadas; //caminho atual sob analise
 	int custoHeuristica; // custo heuristico do nodo
-	Gerenciador umGerenciador;
-	
-	
-	
+	Gerenciador umGerenciador; // para relacionamento com a fronteira
+		
 	
 	public Caminho(Jogada jogadaInicial){
 		
@@ -19,21 +17,19 @@ public class Caminho implements Cloneable {
 		listaJogadas.add(jogadaInicial);
 		
 		custoHeuristica = jogadaInicial.calculaHeuristica();
-			
-		
-	}
+		}
+	
+	
 	
 	public Caminho(ArrayList<Jogada> v) {
 		listaJogadas = v;
 		custoHeuristica = this.calculaHeuristicaDoCaminho();
-		
-	}
+		}
 	
 	public Caminho() {
 		listaJogadas = new ArrayList<Jogada>(1);
 		custoHeuristica = 20;
-		
-	}
+		}
 	
 	public Gerenciador getUmGerenciador() {
 		return umGerenciador;
@@ -44,37 +40,27 @@ public class Caminho implements Cloneable {
 		this.umGerenciador = umGerenciador;
 	}
 
-
-	
-
-
 	public int getCustoHeuristica() {
 		return custoHeuristica;
 	}
-
 
 	public void setCustoHeuristica(int custoHeuristica) {
 		this.custoHeuristica = custoHeuristica;
 	}
 
-
 	public ArrayList<Jogada> getListaJogadas() {
 		return listaJogadas;
 	}
-
 
 	public void setListaJogadas(ArrayList<Jogada> caminhoAtual) {
 		this.listaJogadas = caminhoAtual;
 	}
 
-	public void setJogada(Jogada j)
-	{
-		
+	public void setJogada(Jogada j) {
 		this.listaJogadas.add(j);
-		
-		
 	}
-	public ArrayList<Jogada> expandirJogada() throws CloneNotSupportedException{
+	
+	public ArrayList<Jogada> expandirJogada() {
 		
 		int tam = this.getListaJogadas().size();
 		Jogada j = this.jogadaDoTopo(); 
@@ -85,8 +71,7 @@ public class Caminho implements Cloneable {
 		
 		int peca = j.getJogada().get(i);
 		
-		if(peca==0)	
-		{
+			if(peca==0)	{
 			
 			switch(i) {
 			
@@ -106,27 +91,7 @@ public class Caminho implements Cloneable {
 				al.add(a0);
 				al.add(b0);
 				
-				
-				/*
-				int t0 = this.getListaJogadas().size();
-								
-				Caminho ca0 = (Caminho) this.clone(); ca0.setJogada(a0);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca0);
-				Caminho cb0 =  (Caminho) this.clone(); cb0.setJogada(b0);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb0);
-				
-				this.getListaJogadas().remove(t0-1+2);
-				this.getListaJogadas().remove(t0-1+1);
-				*/
-				
-				
-				
-				
-				
-				
-
-				
-				}break;
+				} break;
 				
 			case 1:
 				
@@ -149,66 +114,25 @@ public class Caminho implements Cloneable {
 				al.add(a1);
 				al.add(b1);
 				al.add(c1);
-				/*
-				
-				int t1 = this.getListaJogadas().size();
-				
-				Caminho ca1 =  (Caminho) this.clone(); ca1.setJogada(a1);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca1);
-				Caminho cb1 =  (Caminho) this.clone(); cb1.setJogada(b1);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb1);
-				Caminho cc1 =  (Caminho) this.clone(); cc1.setJogada(c1);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cc1);
-				
-				this.getListaJogadas().remove(t1-1+3);
-				this.getListaJogadas().remove(t1-1+2);
-				this.getListaJogadas().remove(t1-1+1);
-				
-				
-				*/
-				
-				
-				
-				
-				}break;
+						
+				} break;
 				
 			case 2:
 				
 				{Jogada a2 = new Jogada(this.getListaJogadas().get(tam-1));
 				int peca2 = this.getListaJogadas().get(tam-1).getJogada().get(1);
-				//System.out.println("peca2 = "+peca2);
 				a2.getJogada().set(1, 0);
 				a2.getJogada().set(2, peca2);
 				
 				Jogada b2 = new Jogada(this.getListaJogadas().get(tam-1));
 				peca2 = this.getListaJogadas().get(tam-1).getJogada().get(5);
-				//System.out.println("peca2 = "+peca2);
 				b2.getJogada().set(5, 0);
 				b2.getJogada().set(2, peca2);
 				
-
 				al.add(a2);
 				al.add(b2);
 				
-				
-				/*
-				int t2 = this.getListaJogadas().size();
-
-				Caminho ca2= (Caminho) this.clone(); ca2.setJogada(a2);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca2);
-				Caminho cb2 = (Caminho) this.clone(); cb2.setJogada(b2);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb2);
-				
-				this.getListaJogadas().remove(t2-1+2);
-				this.getListaJogadas().remove(t2-1+1);
-
-				*/
-			
-				
-				
-				
-				
-				}break;
+				} break;
 				
 			case 3:
 				
@@ -223,8 +147,8 @@ public class Caminho implements Cloneable {
 				b3.getJogada().set(3, peca3);
 				
 				Jogada c3 = new Jogada(this.getListaJogadas().get(tam-1));
-				peca3 = this.getListaJogadas().get(tam-1).getJogada().get(7);
-				c3.getJogada().set(7, 0);
+				peca3 = this.getListaJogadas().get(tam-1).getJogada().get(6);
+				c3.getJogada().set(6, 0);
 				c3.getJogada().set(3, peca3);
 				
 
@@ -232,27 +156,7 @@ public class Caminho implements Cloneable {
 				al.add(b3);
 				al.add(c3);
 				
-				/*
-				int t3 = this.getListaJogadas().size();
-				
-				Caminho ca3 = (Caminho) this.clone(); ca3.setJogada(a3);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca3);
-				Caminho cb3 = (Caminho) this.clone(); cb3.setJogada(b3);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb3);
-				Caminho cc3 =(Caminho) this.clone(); cc3.setJogada(c3);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cc3);
-				
-				
-				this.getListaJogadas().remove(t3-1+3);
-				this.getListaJogadas().remove(t3-1+2);
-				this.getListaJogadas().remove(t3-1+1);
-				
-				*/
-				
-				
-				
-				
-				}break;
+				} break;
 				
 				
 			case 4:
@@ -283,27 +187,7 @@ public class Caminho implements Cloneable {
 				al.add(b4);
 				al.add(c4);
 				al.add(d4);
-				/*
-				int t4 = this.getListaJogadas().size();
-				
-				Caminho ca4 = new Caminho(); ca4 = this; ca4.setJogada(a4);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca4);
-				Caminho cb4 = new Caminho(); cb4 = this; cb4.setJogada(b4);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb4);
-				Caminho cc4 = new Caminho(); cc4 = this; cc4.setJogada(c4);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cc4);
-				Caminho cd4 = new Caminho(); cd4 = this; cd4.setJogada(d4);
-				
-				
-				this.getListaJogadas().remove(t4-1+4);
-				this.getListaJogadas().remove(t4-1+3);
-				this.getListaJogadas().remove(t4-1+2);
-				this.getListaJogadas().remove(t4-1+1);
-				*/
-				
-			
-				
-				}break;
+				} break;
 				
 			case 5:
 				
@@ -327,33 +211,7 @@ public class Caminho implements Cloneable {
 				al.add(b5);
 				al.add(c5);
 				
-				/*
-				int t5 = this.getListaJogadas().size();
-				
-				Caminho ca5 = new Caminho(); ca5 = (Caminho) this.clone(); 
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca5);
-				//System.out.println("tamanho do caminho antes add "+ca5.getListaJogadas().size()); 
-				ca5.setJogada(a5);
-				//System.out.println("tamanho do caminho pos add "+ca5.getListaJogadas().size());
-				Caminho cb5 = new Caminho(); cb5 = (Caminho) this.clone(); cb5.setJogada(b5);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb5);
-				Caminho cc5 = new Caminho(); cc5 = (Caminho) this.clone(); cc5.setJogada(c5);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cc5);
-				
-				
-				this.getListaJogadas().remove(t5-1+3);
-				this.getListaJogadas().remove(t5-1+2);
-				this.getListaJogadas().remove(t5-1+1);
-				*/
-				
-				
-				
-				
-				
-				
-				
-				
-				}break;
+				} break;
 				
 			case 6:
 				
@@ -367,28 +225,10 @@ public class Caminho implements Cloneable {
 				b6.getJogada().set(3, 0);
 				b6.getJogada().set(6, peca6);
 				
-				
-
 				al.add(a6);
 				al.add(b6);
-				/*
-				int t6 = this.getListaJogadas().size();
-				
-				Caminho ca6 = (Caminho)this.clone(); ca6.setJogada(a6);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca6);
-				Caminho cb6 = (Caminho)this.clone(); cb6.setJogada(b6);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb6);
-				
-				this.getListaJogadas().remove(t6-1+2);
-				this.getListaJogadas().remove(t6-1+1);
-			
-				
-				*/
-				
-				
-				
-				
-				}break;
+					
+				} break;
 				
 			case 7:
 				
@@ -407,33 +247,11 @@ public class Caminho implements Cloneable {
 				c7.getJogada().set(4, 0);
 				c7.getJogada().set(7, peca7);
 				
-				
-
 				al.add(a7);
 				al.add(b7);
 				al.add(c7);
 				
-				/*
-				int t7 = this.getListaJogadas().size();
-				
-				Caminho ca7 = new Caminho(); ca7 = (Caminho)this.clone(); ca7.setJogada(a7);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca7);
-				Caminho cb7 = new Caminho(); cb7 = (Caminho)this.clone(); cb7.setJogada(b7);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb7);
-				Caminho cc7 = new Caminho(); cc7 = (Caminho)this.clone(); cc7.setJogada(c7);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cc7);
-				
-				this.getListaJogadas().remove(t7-1+3);
-				this.getListaJogadas().remove(t7-1+2);
-				this.getListaJogadas().remove(t7-1+1);
-				
-				*/
-				
-				
-				
-			
-				
-				}break;
+				} break;
 				
 			case 8:
 			
@@ -451,42 +269,14 @@ public class Caminho implements Cloneable {
 				al.add(a8);
 				al.add(b8);
 				
-				/*
-				 
-				int t8 = this.getListaJogadas().size();
-				
-				Caminho ca8 = (Caminho) this.clone(); ca8.setJogada(a8);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(ca8);
-				Caminho cb8 =  (Caminho) this.clone(); cb8.setJogada(b8);
-				this.getUmGerenciador().getUmaFronteira().getCaminhos().add(cb8);
-				
-				this.getListaJogadas().remove(t8-1+2);
-				this.getListaJogadas().remove(t8-1+1);
-				*/
-				
-				}break;
-			
+				} break;
 			}
-			
-			
-			
-			
-			
-			
 		}
-		
-		
-		
 	}	
 	return al;
 		
 	}
 
-
-	
-
-
-	
 
 public Jogada jogadaDoTopo(){
 	int tam = this.getListaJogadas().size();
@@ -494,30 +284,28 @@ public Jogada jogadaDoTopo(){
 }
 
 	
-	public int calculaHeuristicaDoCaminho(){
+public int calculaHeuristicaDoCaminho(){
 		// calcula a heuristica de um array de jogadas (um caminho)
-		int tamC = this.getListaJogadas().size();
-		int cont = 0;
+	int tamC = this.getListaJogadas().size();
+	int cont = 0;
 		for(int i = 0; i< tamC; i++){
 			
 			cont = cont+this.getListaJogadas().get(i).calculaHeuristica();
 			
 		}
-		return cont + this.jogadaDoTopo().calculaSegundaHeuristica();
-	}
+		return cont;
+		//+ this.jogadaDoTopo().calculaSegundaHeuristica();
+}
 
 	public void mostrarCaminho() {
+// mostrar as jogadas de um caminho
 		int tam = this.getListaJogadas().size();
-		
-		for(int i=0;i<tam;i++){
-			
-			this.getListaJogadas().get(i).mostrarJogada(); 
-			int custo = this.getListaJogadas().get(i).calculaHeuristica()+this.getListaJogadas().get(i).calculaSegundaHeuristica();
-			System.out.println("Custo "+custo); System.out.println("\n");
+				for(int i=0;i<tam;i++){
+					this.getListaJogadas().get(i).mostrarJogada(); 
+					int custo = this.getListaJogadas().get(i).calculaHeuristica()+this.getListaJogadas().get(i).calculaSegundaHeuristica();
+					System.out.println("Custo da jogada "+custo); System.out.println("\n");
 		}
 		
 	}
-	
-	
 
 }

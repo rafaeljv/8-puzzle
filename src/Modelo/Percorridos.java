@@ -12,12 +12,8 @@ public class Percorridos {
 	
 	public Percorridos() {
 		
-		
 		caminhosPercorridos = new ArrayList<Caminho>(1);	
-		
-		
-		
-	}
+		}
 
 
 
@@ -32,12 +28,6 @@ public class Percorridos {
 	public void setCaminhosPercorridos(ArrayList<Caminho> caminhosPercorridos) {
 		this.caminhosPercorridos = caminhosPercorridos;
 	}
-	
-
-	
-	
-	
-	
 	
 
 }

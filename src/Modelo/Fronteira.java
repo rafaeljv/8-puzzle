@@ -4,13 +4,10 @@ import java.util.ArrayList;
 
 public class Fronteira {
 	
-	
 	ArrayList<Caminho> caminhos;
 	
 	public Fronteira(){
-		
-	caminhos = new ArrayList<Caminho>(1);	
-		
+			caminhos = new ArrayList<Caminho>(1);	
 	}
 
 	public ArrayList<Caminho> getCaminhos() {
@@ -23,18 +20,14 @@ public class Fronteira {
 	
 	public void mostrarFronteira(){
 		
-		
 		int tamF = this.getCaminhos().size();
 		
-		for (int i=0;i<tamF;i++){
-			int tamC = this.getCaminhos().get(i).getListaJogadas().size();
-			
-			for(int k=0;k<tamC;k++)
-			{
+			for (int i=0;i<tamF;i++){
+				int tamC = this.getCaminhos().get(i).getListaJogadas().size();
+					for(int k=0;k<tamC;k++) {
 				System.out.println("\n jogada "+ k+ " do caminho"+ i+" \n");
 				this.getCaminhos().get(i).getListaJogadas().get(k).mostrarJogada();}
-			
-		}
+			}
 	}
 	
 	public Caminho avaliarFronteira() {
@@ -60,7 +53,4 @@ public class Fronteira {
 	this.getCaminhos().remove(n); // remove da fronteira o caminho escolhido
 	return n;		
 	}
-	
-	
-
 }

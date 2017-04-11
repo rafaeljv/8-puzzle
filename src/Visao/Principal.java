@@ -1,6 +1,6 @@
 package Visao;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 import Controle.Gerenciador;
 import Modelo.Caminho;
@@ -10,46 +10,48 @@ import Modelo.Jogada;
 
 public class Principal {
 
-	public static void main(String[] args) throws CloneNotSupportedException  {
+	public static void main(String[] args) throws InterruptedException  {
 		
 	// instanciar uma jogada
-	Jogada jogadaInicial = new Jogada();
-	jogadaInicial.mostrarJogada();
+		Date d = new Date();
+		Jogada jogadaInicial = new Jogada();
+		jogadaInicial.mostrarJogada();
+	
 	// mostrar o custo heuristico do primeiro nodo
-	int custo = +jogadaInicial.calculaHeuristica()+jogadaInicial.calculaSegundaHeuristica();
-	System.out.println("\ncusto heuristico da jogada inicial: "+custo);
+	
+		int custo = +jogadaInicial.calculaHeuristica()+jogadaInicial.calculaSegundaHeuristica();
+		System.out.println("\ncusto heuristico da jogada inicial: "+custo);
+	
 	// instanciar um caminho que possui a primeira jogada
-	Caminho oCaminho = new Caminho(jogadaInicial);
+	
+		Caminho oCaminho = new Caminho(jogadaInicial);
+	
 	// instanciar uma fronteira
-	Fronteira aFronteira = new Fronteira();
-	//aFronteira.getCaminhos().add(oCaminho);
+	
+		Fronteira aFronteira = new Fronteira();
+	
 	// instanciar um gerenciador, que possui o caminho e a fronteira
-	Gerenciador ger = new Gerenciador(oCaminho, aFronteira);
+	
+		Gerenciador ger = new Gerenciador(oCaminho, aFronteira);
+	
 	// repassar o gerenciador ao proprio caminho, para transporte de caminhos para a fronteira
-	oCaminho.setUmGerenciador(ger);
+	
+		oCaminho.setUmGerenciador(ger);
+	
 	// iniciar a busca
-	
-	
+		
 		int cont = 0;
-		while(cont < 100000 && ! ger.verificaVencedor(oCaminho.jogadaDoTopo())) {	
-		ger.iniciar();
+			while( ! ger.verificaVencedor(ger.getUmCaminho().jogadaDoTopo())) {	
+				
+				ger.iniciar(); cont++;
 		
-		cont++;
-		System.out.println("Em execucao ");
-		System.out.println(". ");
-		System.out.println(".. ");
-		System.out.println("... ");
 		}
-	
-	
-	
-	
-	
-	
+			Date f = new Date();
+			System.out.println("Horario inicial "+d);
+			System.out.println("Horario final "+f);
+			System.exit(0);
+			
 	}
-	
-	
-		
 	
 	}
 	

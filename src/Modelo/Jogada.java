@@ -12,26 +12,26 @@ public class Jogada {
 		
 		// populacao dos espacos, randomico.
 		jogada = new ArrayList<Integer>(8);		
-			for(int i = 0; i< 9;i++){
-				jogada.add(i); 
+			
+			//for(int i = 0; i< 9;i++){
+				//jogada.add(i); 
+				//Collections.shuffle(jogada);
 				
 				
-				Collections.shuffle(jogada);
-				
-				
-			}
-		/*
-		jogada.add(0, 5);
-		jogada.add(1, 8);
-		jogada.add(2, 2);
-		jogada.add(3, 3);
-		jogada.add(4, 4);
-		jogada.add(5, 0);
-		jogada.add(6, 6);
-		jogada.add(7, 7);
-		jogada.add(8, 1);
+			//}
 		
-		*/
+		///*
+		jogada.add(0, 3);
+		jogada.add(1, 1);
+		jogada.add(2, 8);
+		jogada.add(3, 5);
+		jogada.add(4, 6);
+		jogada.add(5, 2);
+		jogada.add(6, 7);
+		jogada.add(7, 4);
+		jogada.add(8, 0);
+		 //*/
+		
 		}
 	
 	
@@ -57,28 +57,29 @@ public void mostrarJogada() {
 
 
 public ArrayList<Integer> getJogada() {
-	return jogada;
-}
+	return jogada;}
 
 
 public void setJogada(ArrayList<Integer> jogada) {
-	this.jogada = jogada;
-}
+	this.jogada = jogada;}
 
 
 
 public int calculaHeuristica() {
-	// calcula o somatorio das distancias ate o estado ideal
+	// calcula o somatorio das distancias ate o estado ideal - Manhattan
+	
 	int tam = this.getJogada().size();
 	int cont = 0;
 	
-	for(int i =0; i< tam; i++){
+	for(int i =0; i< tam; i++)
+	{
 		
-		cont = cont+ Math.abs(this.getJogada().get(i) - i);
-		
-	}
-	
-	
+				if(this.getJogada().get(i) != 0)
+					{
+					cont = cont + Math.abs(this.getJogada().get(i) - i - 1);} 
+						else {
+							cont = cont + Math.abs(this.getJogada().get(i) - i + 8);}
+			}
 	
 	return cont;
 	
@@ -94,16 +95,26 @@ public int calculaSegundaHeuristica() {
 	
 	int cont = 0;
 	
-	for(int j = 0; j<tam; j++){
+	for(int j = 0; j<tam; j++)
+		{
 		
-		if(this.getJogada().get(j) != j){cont = cont+1;}
+		if(this.getJogada().get(j) != 0){
+			
+			if(this.getJogada().get(j) != j + 1){cont = cont+1;}
+										} 
 		
-	}
-	return cont;
-}
+		else
+			{			
+			if(this.getJogada().get(j) != j - 8){cont = cont+1;}
+			}
+		
+		}
+	
+	return cont;}
 
 	
-	}
+
+}
 	
 	
 	
