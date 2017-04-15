@@ -19,9 +19,14 @@ public class Principal {
 	
 	// mostrar o custo heuristico do primeiro nodo
 	
-		int custo = +jogadaInicial.calculaHeuristica()+jogadaInicial.calculaSegundaHeuristica();
+		int custo = +jogadaInicial.calculaHeuristica();
 		System.out.println("\ncusto heuristico da jogada inicial: "+custo);
-	
+		
+		int inversoes = jogadaInicial.calculaInversoes();
+		System.out.println("\nnumero de inversoes: "+inversoes);
+		if(inversoes%2==0){System.out.println("Numero de inversoes eh par. A jogada tem solucao.");} else{
+			System.out.println("Numero de inversoes eh impar. A jogada sem soluçao.");}
+		
 	// instanciar um caminho que possui a primeira jogada
 	
 		Caminho oCaminho = new Caminho(jogadaInicial);
@@ -41,11 +46,22 @@ public class Principal {
 	// iniciar a busca
 		
 		int cont = 0;
-			while( ! ger.verificaVencedor(ger.getUmCaminho().jogadaDoTopo())) {	
+			while( cont<100000000 && ! ger.verificaVencedor(ger.getUmCaminho().jogadaDoTopo())) {	
 				
-				ger.iniciar(); cont++;
+				ger.iniciar(); 
+				cont++;
 		
 		}
+			
+			System.out.println("Solucao encontrada!\n"); ger.getUmCaminho().jogadaDoTopo().mostrarJogada();
+			System.out.println("\nVeja o caminho percorrido: \n"); ger.getUmCaminho().mostrarCaminho();
+			System.out.println("Tamanho da fronteira "+ger.getUmaFronteira().getCaminhos().size());
+			int tam = +ger.getUmCaminho().getListaJogadas().size()-1;
+			System.out.println("Jogadas realizadas "+tam);
+			System.out.println("Tamanho da lista de caminhos percorridos "+ ger.getUmPercorrido().getCaminhosPercorridos().size());
+			
+			
+			
 			Date f = new Date();
 			System.out.println("Horario inicial "+d);
 			System.out.println("Horario final "+f);

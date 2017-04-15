@@ -13,24 +13,24 @@ public class Jogada {
 		// populacao dos espacos, randomico.
 		jogada = new ArrayList<Integer>(8);		
 			
-			//for(int i = 0; i< 9;i++){
-				//jogada.add(i); 
-				//Collections.shuffle(jogada);
+	//		for(int i = 0; i< 9;i++){
+	//			jogada.add(i); 
+	//			Collections.shuffle(jogada);
 				
 				
-			//}
+	//		}
 		
 		///*
-		jogada.add(0, 3);
-		jogada.add(1, 1);
-		jogada.add(2, 8);
-		jogada.add(3, 5);
-		jogada.add(4, 6);
-		jogada.add(5, 2);
+		jogada.add(0, 4);
+		jogada.add(1, 6);
+		jogada.add(2, 2);
+		jogada.add(3, 8);
+		jogada.add(4, 3);
+		jogada.add(5, 5);
 		jogada.add(6, 7);
-		jogada.add(7, 4);
-		jogada.add(8, 0);
-		 //*/
+		jogada.add(7, 0);
+		jogada.add(8, 1);
+		//*/
 		
 		}
 	
@@ -112,7 +112,64 @@ public int calculaSegundaHeuristica() {
 	
 	return cont;}
 
+
+public int calculaTerceiraHeuristica(){
 	
+	
+	int tam = this.getJogada().size();
+
+	// calcula o numero de sequencias de pecas
+	
+	int cont = 0;
+	
+	for(int j = 0; j<tam; j++)
+		{
+		switch(j){
+		case 0 : if(this.getJogada().get(1)==2 && this.getJogada().get(2) ==3 ){cont++;} break;
+		case 1 : if(this.getJogada().get(0)==1 && this.getJogada().get(2) ==3 ){cont++;} break;
+		case 2 : if(this.getJogada().get(0)==1 && this.getJogada().get(1) ==2 ){cont++;} break;
+		case 3 : if(this.getJogada().get(4)==5 && this.getJogada().get(5) ==6 ){cont++;} break;
+		case 4 : if(this.getJogada().get(3)==4 && this.getJogada().get(5) ==6 ){cont++;} break;
+		case 5 : if(this.getJogada().get(3)==4 && this.getJogada().get(4) ==5 ){cont++;} break;
+		//case 6 : if(this.getJogada().get(7)==8 && this.getJogada().get(8) ==0 ){cont++;} break;
+		//case 7 : if(this.getJogada().get(6)==7 && this.getJogada().get(8) ==0 ){cont++;} break;
+		//case 8 : if(this.getJogada().get(6)==7 && this.getJogada().get(7) ==8 ){cont++;} break;
+			
+			}
+
+	
+	
+	
+}
+	return cont;
+	
+
+}
+
+
+
+public int calculaInversoes(){
+	
+	
+	int t = this.getJogada().size();
+	int cont=0;
+	
+	for(int i = 0; i < t - 1; i++){
+		
+		
+		int j = this.getJogada().get(i);
+		
+			for(int u = i+1; u<t; u++ ){
+				int n  = this.getJogada().get(u);
+			
+				if(n < j && j != 0 && n!=0) {cont++;}
+		}
+		
+	}
+		
+	return cont;
+	
+}
 
 }
 	

@@ -28,7 +28,7 @@ public class Caminho {
 	
 	public Caminho() {
 		listaJogadas = new ArrayList<Jogada>(1);
-		custoHeuristica = 20;
+		custoHeuristica = 600;
 		}
 	
 	public Gerenciador getUmGerenciador() {
@@ -292,9 +292,16 @@ public int calculaHeuristicaDoCaminho(){
 			
 			cont = cont+this.getListaJogadas().get(i).calculaHeuristica();
 			
+			//+this.jogadaDoTopo().calculaSegundaHeuristica();
+					
+						
+						//+ this.getListaJogadas().get(i).calculaTerceiraHeuristica();
+			//+  
+			
 		}
-		return cont;
-		//+ this.jogadaDoTopo().calculaSegundaHeuristica();
+		return cont 
+				 + this.getListaJogadas().size();
+		
 }
 
 	public void mostrarCaminho() {
@@ -302,7 +309,7 @@ public int calculaHeuristicaDoCaminho(){
 		int tam = this.getListaJogadas().size();
 				for(int i=0;i<tam;i++){
 					this.getListaJogadas().get(i).mostrarJogada(); 
-					int custo = this.getListaJogadas().get(i).calculaHeuristica()+this.getListaJogadas().get(i).calculaSegundaHeuristica();
+					int custo = this.getListaJogadas().get(i).calculaHeuristica();
 					System.out.println("Custo da jogada "+custo); System.out.println("\n");
 		}
 		
